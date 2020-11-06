@@ -8,7 +8,7 @@ function _cd_print::put_color
 
 function _cd_print::print_wd
 {
-  tput setaf 3;
+  pwd
 }
 
 function _cd_print::reset_color
@@ -16,10 +16,14 @@ function _cd_print::reset_color
   tput sgr0;
 }
 
-cd() {
-  builtin cd $@
+function _cd_print::print
+{
   _cd_print::put_color
   _cd_print::print_wd
   _cd_print::reset_color
 }
 
+function _cd_print::init
+{
+  chpwd_functions=(${chpwd_functions[@]} _cd_print::print)
+}
